@@ -5,7 +5,7 @@ Bex is a simple command line tool for converting hex numbers to binary and vice 
 ## Download
 
 1. get the binary:
-  * for windows users : download the .exe in target release
+  * for windows users : download the bex.exe
   * for linux/macOS users : download/git clone the project and run cargo build --release on it
 2. add the folder it's in the $PATH variable or move it to a folder that's in $PATH
 
