@@ -5,7 +5,8 @@ fn main() {
     const H_PREFIX: &str    = "0x";
     const B_PREFIX: &str    = "0b";
     const HELP_PARAM: &str  = "--help";
-    
+       
+
     match &args[1] {
          h if h == H_PREFIX => {
             print!("0b ");
@@ -15,8 +16,8 @@ fn main() {
         },
         b if b == B_PREFIX => {
             print!("0x ");
-            for n in 2..args.len() {
-                print!("{}",bin_to_hex(&args[n]));
+            for nib in args.iter().skip(2) {
+                print!("{}",bin_to_hex(nib));
             }
         },
         hlp if hlp == HELP_PARAM => {
