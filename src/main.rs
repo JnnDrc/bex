@@ -8,13 +8,13 @@ fn main() {
        
 
     match &args[1] {
-         h if h == H_PREFIX => {
+         hp if hp == H_PREFIX => {
             print!("0b ");
             for n in args[2].chars() {
                 print!("{} ",hex_to_bin(n))
             }
         },
-        b if b == B_PREFIX => {
+        bp if bp == B_PREFIX => {
             print!("0x ");
             for nib in args.iter().skip(2) {
                 print!("{}",bin_to_hex(nib));
@@ -44,7 +44,7 @@ fn main() {
 }
 
 fn hex_to_bin(hex: char) -> &'static str{
-    return match hex {
+    match hex {
         '0' => "0000",
         '1' => "0001",
         '2' => "0010",
@@ -72,7 +72,7 @@ fn hex_to_bin(hex: char) -> &'static str{
 }
 
 fn bin_to_hex(bin: & str) -> &str{
-    return match bin {
+    match bin {
         "0000" => "0",
         "0001" => "1",
         "0010" => "2",
@@ -89,6 +89,6 @@ fn bin_to_hex(bin: & str) -> &str{
         "1101" => "D",
         "1110" => "E",
         "1111" => "F",
-        _ => "????"
+        _ => "?"
     }
 }
