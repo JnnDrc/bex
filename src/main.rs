@@ -1,45 +1,72 @@
 
-
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    const H_PREFIX: &str    = "0x";
-    const B_PREFIX: &str    = "0b";
-    const HELP_PARAM: &str  = "--help";
-       
+    let mut pipe_mode = false;
+    let mut prefix = "";
+    let mut counted = 1;
+    const MANUAL: &str = 
+r#"/-------------BEX-------------\
+| What is bex ?               |
+| Bex is a tool to convert    |
+| a hex number to binary a    |
+| number and vice versa.      |
+|-----------------------------|
+| How to use ?                |
+| Type the type of the input  |
+| and the input number, like  |
+| this: bex 0x E030.          |
+| Modes :                     |
+|   Hex to Binary:            |
+|   ~> bex 0x F025            |
+|   0b 1111 0000 0010 0101    |
+|   Binary to hex:            |
+|   ~> bex 0b 1110 0000 0010  |
+|   0x E02                    |
+|-----------------------------|
+| Arguments manual:           |
+|   -h/--help: shows this     |
+| manual                      |
+|   -p/--pipe: remove the type|
+|of the output(0x/0b) to easi-|
+|ly pipe the output           |
+\\-----------------------0.1.1/"#;
+    
+    if args.len() < 2{
+        panic!("Error: missing inputs, Expected: 0x or 0b, Received: nothing, type bex --help for help")
+    }
+    if &args[1] == "--help" || &args[1] == "-h"{
+        print!("{MANUAL}");
+        return;
+    }
+    for arg in &args[1..]{
+        if  arg == "-p" || arg == "--pipe"{
+            pipe_mode = true;
+            counted+=1;
+        }else if arg == "0x" || arg == "0b"{
+            prefix = arg;
+            counted+=1;
+            break;
+        }
+    }
 
-    match &args[1] {
-         hp if hp == H_PREFIX => {
-            print!("0b ");
-            for n in args[2].chars() {
+    match prefix {
+         "0x" => {
+             if !pipe_mode{
+                 print!("0b ");
+             }
+            for n in args[counted].chars() {
                 print!("{} ",hex_to_bin(n))
             }
         },
-        bp if bp == B_PREFIX => {
-            print!("0x ");
-            for nib in args.iter().skip(2) {
+        "0b" => {
+            if !pipe_mode{
+                print!("0x ");
+            }
+            for nib in args.iter().skip(counted) {
                 print!("{}",bin_to_hex(nib));
             }
-        },
-        hlp if hlp == HELP_PARAM => {
-            println!("/-------------BEX-------------\\");
-            println!("| What is bex ?               |");
-            println!("| Bex is a tool to convert    |");
-            println!("| a hex number to binary a    |");
-            println!("| number ands vice versa.     |");
-            println!("| How to use ?                |");
-            println!("| Type the type of the input  |");
-            println!("| and the input number, like  |");
-            println!("| this: bex 0x E030.          |");
-            println!("| Modes :                     |");
-            println!("|   Hex to Binary:            |");
-            println!("|   ~> bex 0x F025            |");    
-            println!("|   0b 1111 0000 0010 0101    |");
-            println!("|   Binary to hex:            |");
-            println!("|   ~> bex 0b 1110 0000 0010  |");
-            println!("|   0x E02                    |");
-            println!("\\-------------1.0-------------/");
         }
-        _   => panic!("Error: invalid input type, Expected: 0x or 0b, Received: {}, type bex --help for help",args[1])
+        _   => panic!("Error: invalid input type, Expected: 0x or 0b, Received: {}, type bex --help for help",prefix)
     }
 }
 
