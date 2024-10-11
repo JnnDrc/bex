@@ -4,11 +4,18 @@ Bex is a simple command line tool for converting hex numbers to binary and vice 
 
 ## Download
 
-1. get the binary:
-  * for windows users : download the .exe in target release
-  * for linux/macOS users : download/git clone the project and run cargo build --release on it
-2. add the folder it's in the $PATH variable or move it to a folder that's in $PATH
+1. you will need cargo to download from any method
 
+### Crates.io 
+
+download the package from crate.io using the cargo
+`cargo install bex-rs`
+
+### Build from source
+
+1. git clone/download the repo
+2. run `cargo build --release`
+3. move the executable in "target/release" to your path
 ## Use
 Type the base of the input and the number:
 `bex [base] [number]`

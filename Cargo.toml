@@ -1,6 +1,19 @@
 [package]
-name = "bex"
+name = "bex-rs"
 version = "0.1.0"
 edition = "2021"
 
+homepage = "https://github.com/JnnDrc/bex"
+readme = "README.md"
+description = "A simple hex-to-bin/bin-to-hex converter"
+repository = "https://github.com/JnnDrc/bex"
+license = "MIT"
+keywords = ["hex","binary","converter","cli"]
+categories = ["cli","command-line-utilities","utilities","converter"]
+
+[[bin]]
+name = "bex"
+path = "src/main.rs"
+
 [dependencies]
+
